@@ -35,7 +35,7 @@ public class CrystalBrook {
 				try {
 					return properties.InitialiseGameState();
 				} catch (Exception e) {
-					System.err.println("Exception: + e");
+					System.err.println("Exception:" + e);
 					System.err.println("The Application will now close.");
 					CrystalBrook.ApplicationExit();
 				}

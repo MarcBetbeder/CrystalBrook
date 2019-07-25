@@ -29,7 +29,7 @@ public class PropertiesReader {
 			engine = new GameEngine(numPlayers, maxHandSize, zeroValue);
 			
 		} catch (Exception e) {
-			System.err.println("Exception: + e");
+			System.err.println("Exception:" + e);
 			System.err.println("The Application will now close.");
 			CrystalBrook.ApplicationExit();
 		}
