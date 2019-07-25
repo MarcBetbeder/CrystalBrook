@@ -1,8 +1,9 @@
 public class GameEngine {
 
-	public static void main(String[] args) {
-		
-
+	private Deck deck;
+	
+	public GameEngine() {
+		this.deck = new Deck();
 	}
 
 }
