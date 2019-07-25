@@ -6,18 +6,13 @@ public class Deck {
 	
 	public Deck() {
 		this.cards = new ArrayList<Card>();
-		int v = 2;
-		int s = 1;
-		while (s < 5) {
+
+		for (int s = 1; s < 5; s++) {
 			
-			while (v < 15) {
+			for (int v = 2; v < 15; v++) {
 				
 				cards.add(new Card(Value.valueOf(v), Suit.valueOf(s)));
-				
-				v++;
 			}
-			
-			s++;
 		}
 	}
 	
