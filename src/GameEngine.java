@@ -15,6 +15,8 @@ public class GameEngine {
 	private boolean gameInProgress;
 
 	private Player currentPlayer = null;
+	private int currentRound;
+	private int maxRound;
 
 	public GameEngine(int numPlayers, int maxHandSize, int zeroValue, int mode, int numAIs) {
 		
@@ -29,6 +31,10 @@ public class GameEngine {
 
 		this.roundInProgress = false;
 		this.gameInProgress = false;
+
+		this.currentPlayer = findPlayerByID(0);
+		this.currentRound = 1;
+		this.maxRound = maxHandSize * 2;
 	}
 
 	public void startGame() {
@@ -66,6 +72,45 @@ public class GameEngine {
 		}
 
 		return target;
+	}
+
+	public List<Player> sortPlayersByScore() {
+		List<Player> sortedPlayers = new ArrayList<>();
+		List<Player> unsortedPlayers = new ArrayList<>();
+
+		unsortedPlayers.addAll(this.players);
+
+		int highScore;
+		Player bestPlayer;
+		boolean found;
+
+		for (int i = 0; i < this.getNumPlayers(); i++) {
+			highScore = 0;
+			bestPlayer = null;
+
+			for (Player player : unsortedPlayers) {
+				found = false;
+
+				if (player.getScore() > highScore) {
+					found = true;
+				} else if (player.getScore() == highScore) {
+					if (bestPlayer == null) {
+						found = true;
+					} else if (player.getID() < bestPlayer.getID()) {
+						found = true;
+					}
+				}
+				if (found) {
+					bestPlayer = player;
+					highScore = player.getScore();
+				}
+			}
+
+			sortedPlayers.add(bestPlayer);
+			unsortedPlayers.remove(bestPlayer);
+		}
+
+		return sortedPlayers;
 	}
 
 }

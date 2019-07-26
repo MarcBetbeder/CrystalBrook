@@ -64,4 +64,8 @@ public class Player {
 	public int getCurrentBid() {
 		return this.currentBid;
 	}
+
+	public void printScore() {
+		System.out.println(this.name + ": " + this.score);
+	}
 }

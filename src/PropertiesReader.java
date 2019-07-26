@@ -33,7 +33,7 @@ public class PropertiesReader {
 			System.out.println("Initialising Game Engine...");
 			engine = new GameEngine(numPlayers, maxHandSize, zeroValue, mode, numAIs);
 			
-			System.out.println("Game Engine initialised with " + numPlayers +
+			System.out.println("\nGame Engine initialised with " + numPlayers +
 					" players, for a game with a max hand size of " + maxHandSize
 					+ ", and a value for zero bids of " + zeroValue + " points.");
 			

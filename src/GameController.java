@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class GameController {
@@ -15,7 +16,7 @@ public class GameController {
 		System.out.println("I am a CystalBrook electronic interface.\n");
 		System.out.println("At this stage, I can keep track of the current state of the game, the score, and make sure no one plays any illegal moves!\n");
 		System.out.println("Hopefully soon, I will be able to join you and play along!");
-		System.out.println("But for now, are you ready to play?");
+		System.out.println("\nBut for now, are you ready to play?");
 		
 		// Prompt for system config.
 		System.out.println("Please confirm that you have set up the system config file. y/n?");
@@ -24,7 +25,7 @@ public class GameController {
 		while (!valid) {
 			line = sc.nextLine();
 			if (line.equals("y")) {
-				System.out.println("Great! Proceeding to set up the game now. :)");
+				System.out.println("\nGreat! Proceeding to set up the game now. :)\n");
 				
 				valid = true;
 				
@@ -33,13 +34,15 @@ public class GameController {
 					this.engine = properties.initialiseGameState();
 
 					System.out.println("\n\nLet's set up the players of the game.");
-                    System.out.println("Starting with the first leader, please input the names of each player in clockwise order.");
-					for (int i = 0; i < engine.getNumPlayers(); i++) {
+                    System.out.println("Starting with the first leader, please input the names of each player in clockwise order.\n");
+					for (int i = 0; i < this.engine.getNumPlayers(); i++) {
 					    System.out.println("Player " + (i + 1) + ":");
 					    line = sc.nextLine();
-					    engine.setPlayerName(i, line);
+					    this.engine.setPlayerName(i, line);
                     }
-                    System.out.println("Wonderful! Let's begin the game!");
+                    System.out.println("\nWonderful! Let's begin the game!");
+					this.printScoreCard(this.engine);
+					this.engine.startGame();
 				} catch (Exception e) {
 					System.err.println("Exception:" + e);
 					System.err.println("The Application will now close.");
@@ -56,6 +59,18 @@ public class GameController {
 				printInvalidResponse();
 			}
 		}
+	}
+
+	public void printScoreCard(GameEngine engine) {
+
+		System.out.println("\nScore Update!");
+
+		List<Player> sortedPlayers = engine.sortPlayersByScore();
+
+		for (Player p : sortedPlayers) {
+			p.printScore();
+		}
+		System.out.println();
 	}
 	
 	public static void printInvalidResponse() {
