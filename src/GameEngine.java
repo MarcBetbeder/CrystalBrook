@@ -7,6 +7,7 @@ public class GameEngine {
 	
 	private int maxHandSize;
 	private int zeroValue;
+	private int mode;
 
 	private Deck deck = null;
 
@@ -15,7 +16,7 @@ public class GameEngine {
 
 	private Player currentPlayer = null;
 
-	public GameEngine(int numPlayers, int maxHandSize, int zeroValue) {
+	public GameEngine(int numPlayers, int maxHandSize, int zeroValue, int mode, int numAIs) {
 		
 		this.players = new ArrayList<>();
 		for (int i = 0; i < numPlayers; i++) {
@@ -24,6 +25,7 @@ public class GameEngine {
 		
 		this.maxHandSize = maxHandSize;
 		this.zeroValue = zeroValue;
+		this.mode = mode;
 
 		this.roundInProgress = false;
 		this.gameInProgress = false;

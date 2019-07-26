@@ -24,12 +24,14 @@ public class PropertiesReader {
 			}
 			
 			System.out.println("Parsing values...");
-			int numPlayers = Integer.valueOf(prop.getProperty("numPlayers"));
-			int maxHandSize = Integer.valueOf(prop.getProperty("maxHandSize"));
-			int zeroValue = Integer.valueOf(prop.getProperty("zeroBidValue"));
+			int numPlayers = Integer.parseInt(prop.getProperty("numPlayers"));
+			int maxHandSize = Integer.parseInt(prop.getProperty("maxHandSize"));
+			int zeroValue = Integer.parseInt(prop.getProperty("zeroBidValue"));
+			int mode = Integer.parseInt(prop.getProperty("simulationLevel"));
+			int numAIs = Integer.parseInt(prop.getProperty("numAIPlayers"));
 			
 			System.out.println("Initialising Game Engine...");
-			engine = new GameEngine(numPlayers, maxHandSize, zeroValue);
+			engine = new GameEngine(numPlayers, maxHandSize, zeroValue, mode, numAIs);
 			
 			System.out.println("Game Engine initialised with " + numPlayers +
 					" players, for a game with a max hand size of " + maxHandSize
