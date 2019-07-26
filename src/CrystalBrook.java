@@ -4,10 +4,10 @@ public class CrystalBrook {
 
 	public static void main(String[] args) {
 		
-		GameEngine engine = ReadInput();
+		GameEngine engine = readInput();
 	}
 	
-	public static GameEngine ReadInput() {
+	public static GameEngine readInput() {
 		
 		Scanner sc = new Scanner(System.in);
 		String line = null;
@@ -33,30 +33,30 @@ public class CrystalBrook {
 				
 				PropertiesReader properties = new PropertiesReader();
 				try {
-					return properties.InitialiseGameState();
+					return properties.initialiseGameState();
 				} catch (Exception e) {
 					System.err.println("Exception:" + e);
 					System.err.println("The Application will now close.");
-					CrystalBrook.ApplicationExit();
+					CrystalBrook.applicationExit();
 				}
 			} else if (line.equals("n")) {
 				System.out.println("The Application will now close.");
 				System.out.println("Please set up the system config file before restarting.");
 				
-				ApplicationExit();
+				applicationExit();
 			} else {
-				PrintInvalid();
+				printInvalidResponse();
 			}
 		}
 		
 		return null;
 	}
 	
-	public static void PrintInvalid() {
+	public static void printInvalidResponse() {
 		System.err.println("Sorry, that input is invalid! Please try again!");
 	}
 	
-	public static void ApplicationExit() {
+	public static void applicationExit() {
 		System.out.println("Shutting down for now, see you next time!");
 		
 		System.exit(0);

@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class PropertiesReader {
 	
-	public GameEngine InitialiseGameState() throws IOException{
+	public GameEngine initialiseGameState() throws IOException{
 		
 		GameEngine engine = null;
 		
@@ -40,7 +40,7 @@ public class PropertiesReader {
 		} catch (Exception e) {
 			System.err.println("Exception:" + e);
 			System.err.println("The Application will now close.");
-			CrystalBrook.ApplicationExit();
+			CrystalBrook.applicationExit();
 		}
 		
 		return engine;
