@@ -8,9 +8,7 @@ public class PropertiesReader {
 	public GameEngine initialiseGameState() throws IOException{
 		
 		GameEngine engine = null;
-		
-		// TODO Read input from a .properties file located within resource directory.
-		
+
 		try {
 			System.out.println("Attempting to read config file...");
 			

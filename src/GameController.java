@@ -1,3 +1,6 @@
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 import java.util.Scanner;
 
 public class GameController {
@@ -21,7 +24,7 @@ public class GameController {
 		System.out.println("Please confirm that you have set up the system config file. y/n?");
 		
 		// Recieve answer.
-		while (valid == false) {
+		while (!valid) {
 			line = sc.nextLine();
 			if (line.equals("y")) {
 				System.out.println("Great! Proceeding to set up the game now. :)");
