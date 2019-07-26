@@ -4,7 +4,7 @@ public class GameController {
 	
 	GameEngine engine;
 	
-	public void readInput() {
+	public void startUp() {
 		
 		Scanner sc = new Scanner(System.in);
 		String line = null;

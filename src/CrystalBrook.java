@@ -7,7 +7,7 @@ public class CrystalBrook {
 	
 	private static void applicationStart() {
 		GameController controller = new GameController();
-		controller.readInput();
+		controller.startUp();
 	}
 	
 	public static void applicationExit() {
