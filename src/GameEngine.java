@@ -37,4 +37,33 @@ public class GameEngine {
 		return this.players.size();
 	}
 
+	public void setPlayerName(int id, String name) {
+		Player p = findPlayerByID(id);
+		if (p != null) {
+			p.setName(name);
+		}
+	}
+
+	private Player findPlayerByID(int id) {
+		Player target = null;
+		for (Player p : this.players) {
+			if (p.getID() == id) {
+				target = p;
+			}
+		}
+
+		return target;
+	}
+
+	private Player findPlayerByName(String name) {
+		Player target = null;
+		for (Player p : this.players) {
+			if (p.getName() == name) {
+				target = p;
+			}
+		}
+
+		return target;
+	}
+
 }

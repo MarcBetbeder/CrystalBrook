@@ -35,7 +35,14 @@ public class GameController {
 				try {
 					this.engine = properties.initialiseGameState();
 
-
+					System.out.println("\n\nLet's set up the players of the game.");
+                    System.out.println("Starting with the first dealer, please input the names of each player in clockwise order.");
+					for (int i = 0; i < engine.getNumPlayers(); i++) {
+					    System.out.println("Player " + (i + 1) + ":");
+					    line = sc.nextLine();
+					    engine.setPlayerName(i, line);
+                    }
+                    System.out.println("Wonderful! Let's begin the game!");
 				} catch (Exception e) {
 					System.err.println("Exception:" + e);
 					System.err.println("The Application will now close.");
