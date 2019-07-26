@@ -13,6 +13,7 @@ public class CrystalBrook extends Application {
 
 		GameController controller = new GameController();
 		controller.startUp();
+		applicationExit();
 	}
 	
 	public static void applicationExit() {
