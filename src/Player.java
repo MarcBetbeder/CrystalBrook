@@ -11,6 +11,8 @@ public class Player {
 	private String name;
 	private String alias;
 	private int score;
+
+	private int currentBid = 0;
 	
 	public Player(GameEngine engine, int id) {
 		this.engine = engine;
@@ -19,6 +21,7 @@ public class Player {
 		this.id = id;
 		
 		this.name = null;
+		this.alias = null;
 		this.score = 0;
 	}
 	
@@ -35,14 +38,30 @@ public class Player {
 	}
 	
 	public String getAlias() {
-		return alias;
+		return this.alias;
 	}
 
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
 
+	public int getScore() {
+		return this.score;
+	}
+
+	public void addScore(int points) {
+		this.score += points;
+	}
+
 	public void addCard(Card card) {
 		this.hand.add(card);
+	}
+
+	public void setBid(int bid) {
+		this.currentBid = bid;
+	}
+
+	public int getCurrentBid() {
+		return this.currentBid;
 	}
 }

@@ -60,7 +60,7 @@ public class GameEngine {
 	private Player findPlayerByName(String name) {
 		Player target = null;
 		for (Player p : this.players) {
-			if (p.getName() == name) {
+			if (p.getName().equals(name)) {
 				target = p;
 			}
 		}
