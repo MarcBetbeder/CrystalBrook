@@ -3,6 +3,8 @@ import java.util.List;
 
 public class GameEngine {
 
+	GameController controller;
+
 	private List<Player> players;
 	
 	private int maxHandSize;
@@ -16,10 +18,12 @@ public class GameEngine {
 
 	private Player currentPlayer = null;
 	private int currentRound;
+	private int cardsThisRound;
 	private int maxRound;
 
-	public GameEngine(int numPlayers, int maxHandSize, int zeroValue, int mode, int numAIs) {
-		
+	public GameEngine(GameController controller, int numPlayers, int maxHandSize, int zeroValue, int mode, int numAIs) {
+		this.controller = controller;
+
 		this.players = new ArrayList<>();
 		for (int i = 0; i < numPlayers; i++) {
 			this.players.add(new Player(this, i));
@@ -39,6 +43,12 @@ public class GameEngine {
 
 	public void startGame() {
 		this.gameInProgress = true;
+		this.startRound();
+	}
+
+	private void startRound() {
+
+		controller.queryRoundStart();
 	}
 
 	public int getNumPlayers() {

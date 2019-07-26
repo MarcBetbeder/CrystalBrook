@@ -31,7 +31,7 @@ public class GameController {
 				
 				PropertiesReader properties = new PropertiesReader();
 				try {
-					this.engine = properties.initialiseGameState();
+					this.engine = properties.initialiseGameState(this);
 
 					System.out.println("\n\nLet's set up the players of the game.");
                     System.out.println("Starting with the first leader, please input the names of each player in clockwise order.\n");
@@ -55,6 +55,29 @@ public class GameController {
 				System.out.println("Please set up the system config file before restarting.");
 				
 				CrystalBrook.applicationExit();
+			} else {
+				printInvalidResponse();
+			}
+		}
+	}
+
+	public void queryRoundStart() {
+		System.out.println("When you are ready to start the next round, type 'go'.");
+
+		Scanner sc = new Scanner(System.in);
+		String line = null;
+		boolean valid = false;
+
+		while (!valid) {
+			line = sc.nextLine();
+
+			if (line.equals("go")) {
+				valid = true;
+
+				System.out.println("Starting new round...\n");
+				sc.close();
+
+				return;
 			} else {
 				printInvalidResponse();
 			}

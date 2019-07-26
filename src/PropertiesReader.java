@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class PropertiesReader {
 	
-	public GameEngine initialiseGameState() throws IOException{
+	public GameEngine initialiseGameState(GameController controller) throws IOException{
 		
 		GameEngine engine = null;
 
@@ -31,7 +31,7 @@ public class PropertiesReader {
 			int numAIs = Integer.parseInt(prop.getProperty("numAIPlayers"));
 			
 			System.out.println("Initialising Game Engine...");
-			engine = new GameEngine(numPlayers, maxHandSize, zeroValue, mode, numAIs);
+			engine = new GameEngine(controller, numPlayers, maxHandSize, zeroValue, mode, numAIs);
 			
 			System.out.println("\nGame Engine initialised with " + numPlayers +
 					" players, for a game with a max hand size of " + maxHandSize
