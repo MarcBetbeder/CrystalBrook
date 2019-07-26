@@ -6,9 +6,12 @@ public class Player {
 	private GameEngine engine;
 	private List<Card> hand;
 	
-	public Player(GameEngine engine) {
+	private int id;
+	
+	public Player(GameEngine engine, int id) {
 		this.engine = engine;
 		this.hand = new ArrayList<>();
+		this.id = id;
 	}
 	
 	public void addCard(Card card) {
