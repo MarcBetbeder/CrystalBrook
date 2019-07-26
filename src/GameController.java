@@ -34,6 +34,8 @@ public class GameController {
 				PropertiesReader properties = new PropertiesReader();
 				try {
 					this.engine = properties.initialiseGameState();
+
+
 				} catch (Exception e) {
 					System.err.println("Exception:" + e);
 					System.err.println("The Application will now close.");

@@ -3,15 +3,19 @@ import java.util.List;
 
 public class GameEngine {
 
-	private Deck deck;
-	
 	private List<Player> players;
 	
 	private int maxHandSize;
 	private int zeroValue;
-	
+
+	private Deck deck = null;
+
+	private boolean roundInProgress;
+	private boolean gameInProgress;
+
+	private Player currentPlayer = null;
+
 	public GameEngine(int numPlayers, int maxHandSize, int zeroValue) {
-		this.deck = new Deck();
 		
 		this.players = new ArrayList<>();
 		for (int i = 0; i < numPlayers; i++) {
@@ -20,6 +24,13 @@ public class GameEngine {
 		
 		this.maxHandSize = maxHandSize;
 		this.zeroValue = zeroValue;
+
+		this.roundInProgress = false;
+		this.gameInProgress = false;
+	}
+
+	public void startGame() {
+		this.gameInProgress = true;
 	}
 
 }
