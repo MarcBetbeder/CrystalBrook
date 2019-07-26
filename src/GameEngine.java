@@ -33,4 +33,8 @@ public class GameEngine {
 		this.gameInProgress = true;
 	}
 
+	public int getNumPlayers() {
+		return this.players.size();
+	}
+
 }
