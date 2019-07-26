@@ -33,7 +33,7 @@ public class GameController {
 				try {
 					this.engine = properties.initialiseGameState(this);
 
-					System.out.println("\n\nLet's set up the players of the game.");
+					System.out.println("\nLet's set up the players of the game.");
                     System.out.println("Starting with the first leader, please input the names of each player in clockwise order.\n");
 					for (int i = 0; i < this.engine.getNumPlayers(); i++) {
 					    System.out.println("Player " + (i + 1) + ":");

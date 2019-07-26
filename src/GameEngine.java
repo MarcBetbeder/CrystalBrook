@@ -16,7 +16,8 @@ public class GameEngine {
 	private boolean roundInProgress;
 	private boolean gameInProgress;
 
-	private Player currentPlayer = null;
+	private Player currentPlayer;
+	private Player currentLeader;
 	private int currentRound;
 	private int cardsThisRound;
 	private int maxRound;
@@ -37,6 +38,7 @@ public class GameEngine {
 		this.gameInProgress = false;
 
 		this.currentPlayer = findPlayerByID(0);
+		this.currentLeader = currentPlayer;
 		this.currentRound = 1;
 		this.maxRound = maxHandSize * 2;
 	}
@@ -73,12 +75,14 @@ public class GameEngine {
 		return target;
 	}
 
-	private Player findPlayerByName(String name) {
+	private Player getNextPlayer(Player p) {
+
 		Player target = null;
-		for (Player p : this.players) {
-			if (p.getName().equals(name)) {
-				target = p;
-			}
+
+		if (p.getID() == this.getNumPlayers()) {
+			target = this.findPlayerByID(0);
+		} else {
+			target = this.findPlayerByID(p.getID() + 1);
 		}
 
 		return target;
