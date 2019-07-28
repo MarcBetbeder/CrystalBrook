@@ -45,12 +45,18 @@ public class GameEngine {
 
 	public void startGame() {
 		this.gameInProgress = true;
+		this.currentLeader = this.findPlayerByID(0);
+		this.currentPlayer = this.currentLeader;
+		this.currentRound = 1;
 		this.startRound();
 	}
 
 	private void startRound() {
 
 		controller.queryRoundStart();
+
+		this.cardsThisRound = calculateCardsThisRound();
+		controller.printRoundInfo(this.currentLeader.getName(), this.cardsThisRound);
 	}
 
 	public int getNumPlayers() {
@@ -125,6 +131,19 @@ public class GameEngine {
 		}
 
 		return sortedPlayers;
+	}
+
+	private int calculateCardsThisRound() {
+
+		int answer;
+
+		if (this.currentRound <= this.maxHandSize) {
+			answer = this.maxHandSize - this.currentRound + 1;
+		} else {
+			answer = this.currentRound - this.maxHandSize;
+		}
+
+		return answer;
 	}
 
 }

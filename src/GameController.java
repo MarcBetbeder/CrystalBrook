@@ -62,7 +62,7 @@ public class GameController {
 	}
 
 	public void queryRoundStart() {
-		System.out.println("When you are ready to start the next round, type 'go'.");
+		System.out.println("When you are ready to start the next round, type 'g'.");
 
 		Scanner sc = new Scanner(System.in);
 		String line = null;
@@ -71,7 +71,7 @@ public class GameController {
 		while (!valid) {
 			line = sc.nextLine();
 
-			if (line.equals("go")) {
+			if (line.equals("g")) {
 				valid = true;
 
 				System.out.println("Starting new round...\n");
@@ -82,6 +82,10 @@ public class GameController {
 				printInvalidResponse();
 			}
 		}
+	}
+
+	public void printRoundInfo(String leadersName, int cardsThisRound) {
+		System.out.println("Welcome to the " + cardsThisRound + " round! " + leadersName + " will begin the bidding.");
 	}
 
 	public void printScoreCard(GameEngine engine) {
