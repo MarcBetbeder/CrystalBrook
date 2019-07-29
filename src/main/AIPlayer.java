@@ -1,3 +1,5 @@
+package main;
+
 public class AIPlayer extends Player {
 
     private Intelligence intelligence;

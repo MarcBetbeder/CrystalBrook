@@ -1,3 +1,5 @@
+package main;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,5 +65,9 @@ public class Player {
 
 	public int getCurrentBid() {
 		return this.currentBid;
+	}
+
+	public void printScore() {
+		System.out.println(this.name + ": " + this.score);
 	}
 }
