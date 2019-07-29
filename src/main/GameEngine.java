@@ -55,22 +55,34 @@ public class GameEngine {
 
 	private void startRound() {
 
+		this.cardsThisRound = calculateCardsThisRound();
+		boolean oneRound = false;
+		if (cardsThisRound == 1) {
+			oneRound = true;
+			if (maxRound - currentRound == currentRound) {
+				this.controller.printOneRoundInfo(0, currentLeader.getName());
+			} else {
+				this.controller.printOneRoundInfo(1, currentLeader.getName());
+			}
+		}
+
 		this.controller.queryRoundStart();
 
-		this.cardsThisRound = calculateCardsThisRound();
-		this.controller.printRoundInfo(this.currentLeader.getName(), this.cardsThisRound);
+		if (!oneRound) {
+			this.controller.printRoundInfo(this.currentLeader.getName(), this.cardsThisRound);
+		}
 
-		this.biddingPhase();
+		this.biddingPhase(oneRound);
 	}
 
-	private void biddingPhase() {
+	private void biddingPhase(boolean oneRound) {
 
 		int bidTally = 0;
 		int crystalBrookBid = 0;
 		boolean crystalBrook = false;
 
 		for (int i = 0; i < this.getNumPlayers(); i++) {
-			if (i == this.getNumPlayers() - 1) {
+			if ((i == this.getNumPlayers() - 1) && !oneRound) {
 				crystalBrookBid = this.cardsThisRound - bidTally;
 				crystalBrook = true;
 			}

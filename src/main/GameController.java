@@ -159,6 +159,17 @@ public class GameController {
 		}
 	}
 
+	public void printOneRoundInfo(int num, String name) {
+
+		System.out.println("The next round is a 1 round. Everyone will bid simultaneously this round, and the CrystalBrook rule is not in place.");
+		if (num == 0) {
+			System.out.println("This time, make sure you don't look at your card! Place it face-out on your forehead, so everyone else can see.");
+		} else if (num == 1) {
+			System.out.println("This time you can look at your card, make sure no-one else sees!");
+		}
+		System.out.println(name + " is the leader this round.");
+	}
+
 	public void printScoringPhase() {
 		System.out.println("\nIt's time to score the round!");
 	}
