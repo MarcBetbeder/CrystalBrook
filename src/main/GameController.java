@@ -165,6 +165,9 @@ public class GameController {
 
 	public void printGameEnd(String winners, int score, float average) {
 
+		System.out.println("That's all folks!");
+		System.out.println("Congratulations to " + winners + ", who won with a score of " + score + " at an average of " + average + " points per round!");
+		sc.close();
 	}
 
 	public void printScoreCard() {

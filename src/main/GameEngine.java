@@ -104,6 +104,8 @@ public class GameEngine {
 			currentRound++;
 			currentLeader = this.getNextPlayer(currentLeader);
 			currentPlayer = currentLeader;
+
+			startRound();
 		} else {
 			this.gameFinish();
 		}
@@ -113,7 +115,7 @@ public class GameEngine {
 
 		String winner = this.findWinningPlayers();
 		int score = this.findWinningScore();
-		float average = (float) score / (float) maxHandSize;
+		float average = (float) score / (float) maxRound;
 
 		controller.printGameEnd(winner, score, average);
 
@@ -181,7 +183,7 @@ public class GameEngine {
 
 		Player target = null;
 
-		if (p.getID() == this.getNumPlayers()) {
+		if (p.getID() == this.getNumPlayers() - 1) {
 			target = this.findPlayerByID(0);
 		} else {
 			target = this.findPlayerByID(p.getID() + 1);
@@ -243,13 +245,44 @@ public class GameEngine {
 	}
 
 	private String findWinningPlayers() {
-		String winners = null;
+		StringBuilder winners = new StringBuilder();
 
-		return winners;
+		int winningScore = this.findWinningScore();
+
+		List<Player> winningPlayers = new ArrayList<>();
+
+		for (Player p : this.players) {
+			if (p.getScore() == winningScore) {
+				winningPlayers.add(p);
+			}
+		}
+
+		switch (winningPlayers.size()) {
+			case 1:
+				winners = new StringBuilder(winningPlayers.get(0).getName());
+				break;
+			case 2:
+				winners = new StringBuilder(winningPlayers.get(0).getName() + " and " + winningPlayers.get(1).getName());
+				break;
+			case 3:
+				for (int i = 0; i < winningPlayers.size(); i++) {
+					if (i == winningPlayers.size() - 1) {
+						winners.append("and ").append(winningPlayers.get(i).getName());
+					} else {
+						winners.append(winningPlayers.get(i).getName()).append(", ");
+					}
+				}
+		}
+
+		return winners.toString();
 	}
 
 	private int findWinningScore() {
 		int score = 0;
+
+		List<Player> sortedPlayers = sortPlayersByScore();
+		Player winner = sortedPlayers.get(0);
+		score = winner.getScore();
 
 		return score;
 	}
