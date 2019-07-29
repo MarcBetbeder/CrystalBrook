@@ -1,15 +1,19 @@
+package main;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class GameController {
 	
 	GameEngine engine;
+	Scanner sc = new Scanner(System.in);
+	String line = null;
+	boolean validInput = false;
 	
 	public void startUp() {
 		
-		Scanner sc = new Scanner(System.in);
-		String line = null;
-		boolean valid = false;
+		this.validInput = false;
+		line = null;
 		
 		// Welcome Group
 		System.out.println("Hello and welcome!");
@@ -22,12 +26,12 @@ public class GameController {
 		System.out.println("Please confirm that you have set up the system config file. y/n?");
 		
 		// Recieve answer.
-		while (!valid) {
+		while (!validInput) {
 			line = sc.nextLine();
 			if (line.equals("y")) {
 				System.out.println("\nGreat! Proceeding to set up the game now. :)\n");
 				
-				valid = true;
+				validInput = true;
 				
 				PropertiesReader properties = new PropertiesReader();
 				try {
@@ -36,7 +40,7 @@ public class GameController {
 					System.out.println("\nLet's set up the players of the game.");
                     System.out.println("Starting with the first leader, please input the names of each player in clockwise order.\n");
 					for (int i = 0; i < this.engine.getNumPlayers(); i++) {
-					    System.out.println("Player " + (i + 1) + ":");
+					    System.out.println("main.Player " + (i + 1) + ":");
 					    line = sc.nextLine();
 					    this.engine.setPlayerName(i, line);
                     }
@@ -47,13 +51,11 @@ public class GameController {
 					System.err.println("Exception:" + e);
 					System.err.println("The Application will now close.");
 					CrystalBrook.applicationExit();
-				} finally {
-					sc.close();
 				}
 			} else if (line.equals("n")) {
 				System.out.println("The Application will now close.");
 				System.out.println("Please set up the system config file before restarting.");
-				
+				sc.close();
 				CrystalBrook.applicationExit();
 			} else {
 				printInvalidResponse();
@@ -64,18 +66,16 @@ public class GameController {
 	public void queryRoundStart() {
 		System.out.println("When you are ready to start the next round, type 'g'.");
 
-		Scanner sc = new Scanner(System.in);
-		String line = null;
-		boolean valid = false;
+		validInput = false;
+		line = null;
 
-		while (!valid) {
+		while (!validInput) {
 			line = sc.nextLine();
 
 			if (line.equals("g")) {
-				valid = true;
+				validInput = true;
 
 				System.out.println("Starting new round...\n");
-				sc.close();
 
 				return;
 			} else {
@@ -85,7 +85,49 @@ public class GameController {
 	}
 
 	public void printRoundInfo(String leadersName, int cardsThisRound) {
-		System.out.println("Welcome to the " + cardsThisRound + " round! " + leadersName + " will begin the bidding.");
+		System.out.println("Welcome to the " + cardsThisRound + " round! " + leadersName + " is the leader this round.");
+	}
+
+	public int promptBid(String name, int tally, int max, boolean crystalbrook, int crystalBrookBid) {
+
+		int bid = 0;
+
+		System.out.println("The current bid tally is: " + tally + ". What is your bid, " + name +"?");
+
+		if (crystalbrook) {
+			this.printCrystalBrookBidInfo(crystalBrookBid);
+		}
+
+		validInput = false;
+		line = null;
+
+		while (!validInput) {
+			line = sc.nextLine();
+
+			try {
+				bid = Integer.parseInt(line);
+				
+				if ((bid > max) || (crystalbrook && bid == crystalBrookBid)) {
+					printInvalidResponse();
+				} else {
+					validInput = true;
+				}
+
+			} catch (NumberFormatException e) {
+				printInvalidResponse();
+			}
+		}
+
+		return bid;
+	}
+
+	public void printCrystalBrookBidInfo(int crystalBrook) {
+
+		if (crystalBrook < 0) {
+			System.out.println("You can bid whatever you'd like!");
+		} else {
+			System.out.println("You cannot bid " + crystalBrook + ".");
+		}
 	}
 
 	public void printScoreCard(GameEngine engine) {

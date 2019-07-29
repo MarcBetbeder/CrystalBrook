@@ -1,3 +1,5 @@
+package main;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,10 +55,38 @@ public class GameEngine {
 
 	private void startRound() {
 
-		controller.queryRoundStart();
+		this.controller.queryRoundStart();
 
 		this.cardsThisRound = calculateCardsThisRound();
-		controller.printRoundInfo(this.currentLeader.getName(), this.cardsThisRound);
+		this.controller.printRoundInfo(this.currentLeader.getName(), this.cardsThisRound);
+
+		this.biddingPhase();
+	}
+
+	private void biddingPhase() {
+
+		int bidTally = 0;
+		int crystalBrookBid = 0;
+		boolean crystalBrook = false;
+
+		for (int i = 0; i < this.getNumPlayers(); i++) {
+			if (i == this.getNumPlayers() - 1) {
+				crystalBrookBid = this.cardsThisRound - bidTally;
+				crystalBrook = true;
+			}
+
+			bidTally += this.makeBid(bidTally, crystalBrook, crystalBrookBid);
+			this.currentPlayer = this.getNextPlayer(this.currentPlayer);
+		}
+	}
+
+	private int makeBid(int tally, boolean crystalBrook, int crystalBrookBid) {
+
+		int bid = controller.promptBid(this.currentPlayer.getName(), tally,
+				this.cardsThisRound, crystalBrook, crystalBrookBid);
+		this.currentPlayer.setBid(bid);
+
+		return bid;
 	}
 
 	public int getNumPlayers() {
