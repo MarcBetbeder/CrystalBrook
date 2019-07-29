@@ -78,6 +78,46 @@ public class GameEngine {
 			bidTally += this.makeBid(bidTally, crystalBrook, crystalBrookBid);
 			this.currentPlayer = this.getNextPlayer(this.currentPlayer);
 		}
+
+		this.scoringPhase();
+	}
+
+	private void scoringPhase() {
+
+		this.controller.printScoringPhase();
+
+		for (Player p : this.players) {
+			this.scorePlayer(p);
+		}
+
+		this.controller.printScoreCard();
+
+		this.finaliseRound();
+	}
+
+	private void finaliseRound() {
+		if (currentRound == maxRound) {
+			gameInProgress = false;
+		}
+
+		if (gameInProgress) {
+			currentRound++;
+			currentLeader = this.getNextPlayer(currentLeader);
+			currentPlayer = currentLeader;
+		} else {
+			this.gameFinish();
+		}
+	}
+
+	private void gameFinish() {
+
+		String winner = this.findWinningPlayers();
+		int score = this.findWinningScore();
+		float average = (float) score / (float) maxHandSize;
+
+		controller.printGameEnd(winner, score, average);
+
+		CrystalBrook.applicationExit();
 	}
 
 	private int makeBid(int tally, boolean crystalBrook, int crystalBrookBid) {
@@ -87,6 +127,32 @@ public class GameEngine {
 		this.currentPlayer.setBid(bid);
 
 		return bid;
+	}
+
+	private void scorePlayer(Player p) {
+
+		int tricks = this.controller.promptTricksWon(p.getName(), this.cardsThisRound, p.getCurrentBid());
+
+		int score = this.calculateScore(tricks, p.getCurrentBid());
+
+		p.addScore(score);
+	}
+
+	private int calculateScore(int tricks, int bid) {
+
+		int score = 0;
+
+		if (tricks == bid) {
+			if (bid == 0) {
+				score = zeroValue;
+			} else {
+				score = 10 + tricks;
+			}
+		} else {
+			score = tricks;
+		}
+
+		return score;
 	}
 
 	public int getNumPlayers() {
@@ -174,6 +240,18 @@ public class GameEngine {
 		}
 
 		return answer;
+	}
+
+	private String findWinningPlayers() {
+		String winners = null;
+
+		return winners;
+	}
+
+	private int findWinningScore() {
+		int score = 0;
+
+		return score;
 	}
 
 }

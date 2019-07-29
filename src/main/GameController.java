@@ -40,12 +40,12 @@ public class GameController {
 					System.out.println("\nLet's set up the players of the game.");
                     System.out.println("Starting with the first leader, please input the names of each player in clockwise order.\n");
 					for (int i = 0; i < this.engine.getNumPlayers(); i++) {
-					    System.out.println("main.Player " + (i + 1) + ":");
+					    System.out.println("Player " + (i + 1) + ":");
 					    line = sc.nextLine();
 					    this.engine.setPlayerName(i, line);
                     }
                     System.out.println("\nWonderful! Let's begin the game!");
-					this.printScoreCard(this.engine);
+					this.printScoreCard();
 					this.engine.startGame();
 				} catch (Exception e) {
 					System.err.println("Exception:" + e);
@@ -107,7 +107,7 @@ public class GameController {
 			try {
 				bid = Integer.parseInt(line);
 				
-				if ((bid > max) || (crystalbrook && bid == crystalBrookBid)) {
+				if ((bid > max) || (crystalbrook && bid == crystalBrookBid) || bid < 0) {
 					printInvalidResponse();
 				} else {
 					validInput = true;
@@ -121,6 +121,35 @@ public class GameController {
 		return bid;
 	}
 
+	public int promptTricksWon(String name, int max, int bid) {
+
+		int tricks = 0;
+
+		System.out.println("How many tricks did you win, " + name + "? Your bid was " + bid + ".");
+
+		validInput = false;
+		line = null;
+
+		while (!validInput) {
+			line = sc.nextLine();
+
+			try {
+				tricks = Integer.parseInt(line);
+
+				if (tricks > max || tricks < 0) {
+					printInvalidResponse();
+				} else {
+					validInput = true;
+				}
+
+			} catch (NumberFormatException e) {
+				printInvalidResponse();
+			}
+		}
+
+		return tricks;
+	}
+
 	public void printCrystalBrookBidInfo(int crystalBrook) {
 
 		if (crystalBrook < 0) {
@@ -130,11 +159,19 @@ public class GameController {
 		}
 	}
 
-	public void printScoreCard(GameEngine engine) {
+	public void printScoringPhase() {
+		System.out.println("\nIt's time to score the round!");
+	}
+
+	public void printGameEnd(String winners, int score, float average) {
+
+	}
+
+	public void printScoreCard() {
 
 		System.out.println("\nScore Update!");
 
-		List<Player> sortedPlayers = engine.sortPlayersByScore();
+		List<Player> sortedPlayers = this.engine.sortPlayersByScore();
 
 		for (Player p : sortedPlayers) {
 			p.printScore();
